@@ -1,0 +1,48 @@
+name: NASA FIRMS Plans and Pricing
+description: >
+  Pricing and access plans for the NASA Fire Information for Resource Management
+  System (FIRMS) API. All access is free; a MAP_KEY is required and obtained
+  at no cost via the FIRMS registration portal.
+url: https://firms.modaps.eosdis.nasa.gov/api/
+
+plans:
+
+  - name: Free MAP_KEY
+    description: >
+      Free API key issued after registering through the FIRMS download portal.
+      Required for all area-based fire detection queries, data availability
+      checks, and missing data lookups. Grants access to all satellite sources
+      including MODIS NRT/SP, VIIRS S-NPP/NOAA-20/NOAA-21 NRT/SP, and
+      LANDSAT NRT.
+    url: https://firms.modaps.eosdis.nasa.gov/api/
+    free: true
+    rateLimit:
+      requests: 5000
+      period: 10 minutes
+      unit: MAP_KEY
+    features:
+      - Access to all FIRMS REST API endpoints
+      - MODIS Terra and Aqua NRT and Standard Processing data
+      - VIIRS S-NPP, NOAA-20, NOAA-21 NRT and Standard Processing data
+      - LANDSAT 8/9 NRT data (US and Canada only)
+      - Area bounding box queries (up to 5-day range)
+      - KML/KMZ fire footprint downloads by region
+      - Data availability and missing data endpoints
+      - Near Real-Time data within 3 hours of satellite observation globally
+      - Ultra Real-Time data within 60 seconds for US and Canada
+      - CSV and KMZ response formats
+      - No cost
+
+  - name: No Key (KML Footprints Only)
+    description: >
+      The KML fire footprints endpoint is publicly accessible without a MAP_KEY
+      for predefined global regions and standard time spans. Suitable for
+      embedding or quick visualization without registration.
+    url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+    free: true
+    features:
+      - KMZ fire footprint downloads for 12 global regions
+      - 24h, 48h, 72h, and 7-day time spans
+      - MODIS, LANDSAT, and VIIRS sensor options
+      - Color-coded detection age polygons
+      - No registration required

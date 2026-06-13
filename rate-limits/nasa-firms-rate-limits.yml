@@ -1,0 +1,37 @@
+name: NASA FIRMS Rate Limits
+description: >
+  Rate limiting details for the NASA FIRMS REST API. Limits are enforced per
+  MAP_KEY across all endpoints. Large area or multi-day queries may consume
+  more than one transaction.
+url: https://firms.modaps.eosdis.nasa.gov/api/
+
+limits:
+
+  - plan: Free MAP_KEY
+    type: per-interval
+    requests: 5000
+    period: 10 minutes
+    scope: MAP_KEY
+    notes: >
+      The 5,000 transaction limit applies per MAP_KEY per 10-minute rolling
+      window. Queries covering large bounding boxes or multi-day ranges may
+      count as multiple transactions depending on server resource consumption.
+      Monitor usage to avoid temporary key suspension.
+
+enforcement:
+  description: >
+    Requests exceeding the 5,000 transactions per 10-minute limit are rejected
+    by the server. Clients should implement back-off logic and avoid bulk
+    parallel requests with the same MAP_KEY. Limits reset on a rolling
+    10-minute basis.
+  notes: >
+    Large area requests (e.g., global bounding box with a 5-day range) may
+    consume significantly more than one transaction count. The API documentation
+    advises splitting large queries into smaller geographic subsets when near
+    the rate limit.
+
+contact:
+  description: >
+    For questions about rate limits or to report issues with MAP_KEY access,
+    contact the FIRMS team through the official support page.
+  url: https://firms.modaps.eosdis.nasa.gov/contact/

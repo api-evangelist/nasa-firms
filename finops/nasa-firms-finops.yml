@@ -1,0 +1,59 @@
+name: NASA FIRMS FinOps
+description: >
+  Financial operations guidance for the NASA Fire Information for Resource
+  Management System (FIRMS) API. The API is a free public service operated by
+  NASA's Land, Atmosphere Near real-time Capability for Earth Observation
+  (LANCE) program; there are no direct monetary costs for consumers.
+url: https://firms.modaps.eosdis.nasa.gov/api/
+
+cost:
+  model: free
+  currency: USD
+  notes: >
+    The NASA FIRMS API is provided at no charge as a public government service.
+    There are no subscription fees, per-request charges, data access fees, or
+    overage penalties. MAP_KEY registration is free and requires only basic
+    contact information.
+
+considerations:
+
+  - category: Registration
+    description: >
+      Obtaining a MAP_KEY is free and requires registration via the FIRMS
+      download portal. The key unlocks area-based queries and data availability
+      endpoints. No credit card or payment information is requested.
+
+  - category: Egress and Storage
+    description: >
+      Fire detection data is returned as CSV text or KMZ files. Consumers
+      storing or caching large volumes of historical data (e.g., full global
+      VIIRS NRT archives across multiple years) should account for cloud storage
+      and egress costs on their own hosting infrastructure.
+
+  - category: Compute for Large Queries
+    description: >
+      Queries spanning large bounding boxes and multi-day ranges generate
+      substantial response payloads. Processing and parsing these on consumer
+      infrastructure may increase cloud compute costs at high query volumes.
+
+  - category: Third-Party Integrations
+    description: >
+      Some commercial GIS platforms and API aggregators re-expose FIRMS data
+      with their own pricing tiers. Always verify whether integration targets
+      the official FIRMS endpoint or a commercial wrapper to avoid unexpected
+      charges.
+
+  - category: Self-Hosted Mirror
+    description: >
+      Organizations requiring guaranteed availability or higher throughput
+      beyond the 5,000 transactions per 10 minutes can archive FIRMS data
+      locally. Cloud infrastructure costs (compute, storage, CDN egress) would
+      then apply to the self-hosted mirror.
+
+optimization:
+  - tip: Request the smallest bounding box that covers your area of interest to minimize transaction consumption per query.
+  - tip: Use the data availability endpoint before issuing fire detection queries to confirm data exists for the target date range.
+  - tip: Cache CSV responses locally; historical standard processing data is static once published and does not change.
+  - tip: Batch requests across time rather than issuing parallel queries with the same MAP_KEY to stay within the 10-minute rate window.
+  - tip: Use the KML footprints endpoint (no MAP_KEY required) for quick regional visualization to conserve MAP_KEY transactions.
+  - tip: Use MODIS SP (standard processing) data for historical analysis; reserve NRT queries for operational near-real-time use cases.

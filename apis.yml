@@ -1,0 +1,166 @@
+aid: nasa-firms
+name: NASA FIRMS
+description: >
+  NASA Fire Information for Resource Management System (FIRMS) REST API providing
+  near-real-time satellite fire detections globally from MODIS (Terra/Aqua),
+  VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available
+  within 3 hours of satellite observation worldwide, with Ultra Real-Time
+  detections available within 60 seconds for the US and Canada. Supports
+  area-based bounding box queries, KML fire footprints by region, data
+  availability checks, and missing data identification. Free MAP_KEY
+  registration required.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/nasa-firms/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - NASA
+  - Fire Detection
+  - Satellite
+  - MODIS
+  - VIIRS
+  - Remote Sensing
+  - Open Data
+  - Environmental
+  - Geospatial
+  - Science
+
+apis:
+
+  - aid: nasa-firms:area-fire-detections
+    name: FIRMS Area Fire Detections API
+    description: >
+      Returns active fire detection hotspots for a defined bounding box area,
+      satellite source, and day range in CSV format. Supports all available
+      sensors including MODIS NRT/SP, VIIRS NOAA-20/NOAA-21/S-NPP NRT/SP, and
+      LANDSAT NRT (US/Canada only). Day range is 1 to 5 days. An optional
+      specific start date can be supplied; without it the query returns data
+      ending at the most recent available.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
+    baseURL: https://firms.modaps.eosdis.nasa.gov
+    tags:
+      - Fire Detection
+      - MODIS
+      - VIIRS
+      - LANDSAT
+      - CSV
+      - Bounding Box
+    properties:
+      - type: Documentation
+        url: https://firms.modaps.eosdis.nasa.gov/api/area/
+    contact:
+      - FN: NASA FIRMS Support
+        url: https://firms.modaps.eosdis.nasa.gov/contact/
+
+  - aid: nasa-firms:kml-fire-footprints
+    name: FIRMS KML Fire Footprints API
+    description: >
+      Returns KMZ files containing color-coded fire footprint polygons for
+      predefined global regions and time spans (24, 48, 72 hours or 7 days).
+      Sensor options include MODIS c6.1, LANDSAT 30m, and VIIRS 375m products
+      from S-NPP, NOAA-20, and NOAA-21. Footprints are color-coded by detection
+      age: 0-6h, 6-12h, 12-24h, and 24h+.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+    baseURL: https://firms.modaps.eosdis.nasa.gov
+    tags:
+      - KML
+      - KMZ
+      - Fire Footprints
+      - Geospatial
+      - Regional
+    properties:
+      - type: Documentation
+        url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+    contact:
+      - FN: NASA FIRMS Support
+        url: https://firms.modaps.eosdis.nasa.gov/contact/
+
+  - aid: nasa-firms:data-availability
+    name: FIRMS Data Availability API
+    description: >
+      Returns CSV data indicating which dates have Standard Processing (SP) and
+      Near Real-Time (NRT) data available for a specified sensor. Supports
+      individual sensor queries or ALL to retrieve availability for every sensor
+      in a single call. Useful for determining the temporal coverage before
+      submitting fire detection queries.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
+    baseURL: https://firms.modaps.eosdis.nasa.gov
+    tags:
+      - Data Availability
+      - Sensor Coverage
+      - CSV
+    properties:
+      - type: Documentation
+        url: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
+    contact:
+      - FN: NASA FIRMS Support
+        url: https://firms.modaps.eosdis.nasa.gov/contact/
+
+  - aid: nasa-firms:missing-data
+    name: FIRMS Missing Data API
+    description: >
+      Identifies dates for which satellite fire detection data is absent from
+      the database, organized by satellite and data type. Each response line
+      represents one day of missing data for a particular sensor. Near
+      Real-Time entries only appear for dates beyond the final standard
+      processing date for each satellite.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
+    baseURL: https://firms.modaps.eosdis.nasa.gov
+    tags:
+      - Missing Data
+      - Data Quality
+      - Satellite Coverage
+    properties:
+      - type: Documentation
+        url: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
+    contact:
+      - FN: NASA FIRMS Support
+        url: https://firms.modaps.eosdis.nasa.gov/contact/
+
+common:
+
+  - type: Website
+    url: https://firms.modaps.eosdis.nasa.gov/
+
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/
+
+  - type: GettingStarted
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+
+  - type: Authentication
+    url: https://firms.modaps.eosdis.nasa.gov/api/
+
+  - type: GitHubOrg
+    url: https://github.com/nasa
+
+  - type: TermsOfService
+    url: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+
+  - type: Pricing
+    url: https://firms.modaps.eosdis.nasa.gov/api/
+
+  - type: Blog
+    url: https://earthdata.nasa.gov/
+
+  - type: Contact
+    url: https://firms.modaps.eosdis.nasa.gov/contact/
+
+  - type: Plans
+    url: plans/nasa-firms-plans-pricing.yml
+
+  - type: RateLimits
+    url: rate-limits/nasa-firms-rate-limits.yml
+
+  - type: FinOps
+    url: finops/nasa-firms-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
