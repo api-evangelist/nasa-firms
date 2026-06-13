@@ -1,0 +1,12 @@
+{
+  "description": "Example request for the FIRMS Area Fire Detections API using VIIRS SNPP NRT data over South America for the past 2 days.",
+  "method": "GET",
+  "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/{MAP_KEY}/VIIRS_SNPP_NRT/-85,-57,-32,14/2",
+  "path_parameters": {
+    "map_key": "{MAP_KEY}",
+    "source": "VIIRS_SNPP_NRT",
+    "area_coordinates": "-85,-57,-32,14",
+    "day_range": 2
+  },
+  "notes": "Replace {MAP_KEY} with your free MAP_KEY from https://firms.modaps.eosdis.nasa.gov/api/map_key/"
+}

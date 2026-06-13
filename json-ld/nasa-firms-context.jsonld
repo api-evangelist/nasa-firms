@@ -1,0 +1,92 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "firms": "https://firms.modaps.eosdis.nasa.gov/api/",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "qudt": "https://qudt.org/vocab/unit/",
+
+    "FireDetection": {
+      "@id": "schema:Event",
+      "@context": {
+        "latitude": {
+          "@id": "geo:lat",
+          "@type": "xsd:decimal"
+        },
+        "longitude": {
+          "@id": "geo:long",
+          "@type": "xsd:decimal"
+        },
+        "acq_date": {
+          "@id": "schema:startDate",
+          "@type": "xsd:date"
+        },
+        "acq_time": {
+          "@id": "schema:startTime",
+          "@type": "xsd:string"
+        },
+        "satellite": {
+          "@id": "schema:instrument"
+        },
+        "frp": {
+          "@id": "firms:frp",
+          "@type": "xsd:decimal",
+          "schema:unitCode": "qudt:MegaW"
+        },
+        "brightness": {
+          "@id": "firms:brightness",
+          "@type": "xsd:decimal"
+        },
+        "confidence": {
+          "@id": "firms:confidence",
+          "@type": "xsd:string"
+        },
+        "daynight": {
+          "@id": "firms:daynight",
+          "@type": "xsd:string"
+        },
+        "version": {
+          "@id": "schema:version",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "DataAvailability": {
+      "@id": "schema:Dataset",
+      "@context": {
+        "sensor": {
+          "@id": "schema:instrument"
+        },
+        "date": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:date"
+        },
+        "sp": {
+          "@id": "firms:standardProcessingAvailable",
+          "@type": "xsd:boolean"
+        },
+        "nrt": {
+          "@id": "firms:nearRealTimeAvailable",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "KmlFootprint": {
+      "@id": "schema:Map",
+      "@context": {
+        "region": {
+          "@id": "schema:spatialCoverage"
+        },
+        "date_span": {
+          "@id": "schema:temporalCoverage"
+        },
+        "sensor": {
+          "@id": "schema:instrument"
+        }
+      }
+    }
+  }
+}

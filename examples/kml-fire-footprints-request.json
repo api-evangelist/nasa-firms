@@ -1,0 +1,12 @@
+{
+  "description": "Example request for the FIRMS KML Fire Footprints API for South America using VIIRS NOAA-20 over the last 48 hours.",
+  "method": "GET",
+  "url": "https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/south_america/48h/noaa-20-viirs-c2/FirespotArea_south_america_noaa-20-viirs-c2_48h.kmz",
+  "path_parameters": {
+    "region": "south_america",
+    "date_span": "48h",
+    "sensor": "noaa-20-viirs-c2",
+    "filename": "FirespotArea_south_america_noaa-20-viirs-c2_48h.kmz"
+  },
+  "alternative_query_format": "https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/?region=south_america&date_span=48h&sensor=noaa-20-viirs-c2"
+}

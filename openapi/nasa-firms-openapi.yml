@@ -1,0 +1,450 @@
+openapi: 3.0.3
+info:
+  title: NASA FIRMS API
+  description: >
+    NASA Fire Information for Resource Management System (FIRMS) REST API
+    providing near-real-time satellite fire detections globally from MODIS
+    (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments.
+    Data is available within 3 hours of satellite observation worldwide, with
+    Ultra Real-Time detections available within 60 seconds for the US and
+    Canada. Supports area-based bounding box queries, KML fire footprints by
+    region, data availability checks, and missing data identification. A free
+    MAP_KEY obtained via registration is required for most endpoints.
+  version: '4.0'
+  contact:
+    name: NASA FIRMS Support
+    url: https://firms.modaps.eosdis.nasa.gov/contact/
+  termsOfService: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+  license:
+    name: NASA Open Data
+    url: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+
+servers:
+  - url: https://firms.modaps.eosdis.nasa.gov
+    description: NASA FIRMS production server
+
+tags:
+  - name: Area Fire Detections
+    description: Active fire hotspot detections within a bounding box area
+  - name: KML Fire Footprints
+    description: KMZ files containing color-coded fire footprint polygons by region
+  - name: Data Availability
+    description: Check which dates have Standard Processing or Near Real-Time data
+  - name: Missing Data
+    description: Identify dates with absent satellite fire detection data
+
+paths:
+
+  /api/area/csv/{map_key}/{source}/{area_coordinates}/{day_range}:
+    get:
+      operationId: getAreaFireDetections
+      summary: Get area fire detections (most recent)
+      description: >
+        Returns active fire detection hotspots within the specified bounding box
+        for the most recent DAY_RANGE days (today back to today minus DAY_RANGE-1).
+        Results are returned in CSV format.
+      tags:
+        - Area Fire Detections
+      parameters:
+        - $ref: '#/components/parameters/MapKey'
+        - $ref: '#/components/parameters/Source'
+        - $ref: '#/components/parameters/AreaCoordinates'
+        - $ref: '#/components/parameters/DayRange'
+      responses:
+        '200':
+          description: CSV fire detection data
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/FireDetectionCSV'
+              example: |
+                latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight
+                -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+
+  /api/area/csv/{map_key}/{source}/{area_coordinates}/{day_range}/{date}:
+    get:
+      operationId: getAreaFireDetectionsByDate
+      summary: Get area fire detections starting from a specific date
+      description: >
+        Returns active fire detection hotspots within the specified bounding box
+        starting from the given DATE and spanning DAY_RANGE days forward
+        (DATE to DATE + DAY_RANGE - 1). Results are returned in CSV format.
+      tags:
+        - Area Fire Detections
+      parameters:
+        - $ref: '#/components/parameters/MapKey'
+        - $ref: '#/components/parameters/Source'
+        - $ref: '#/components/parameters/AreaCoordinates'
+        - $ref: '#/components/parameters/DayRange'
+        - name: date
+          in: path
+          required: true
+          description: Start date for the query in YYYY-MM-DD format.
+          schema:
+            type: string
+            format: date
+            example: '2026-06-01'
+      responses:
+        '200':
+          description: CSV fire detection data for the specified date range
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/FireDetectionCSV'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+
+  /api/kml_fire_footprints/{region}/{date_span}/{sensor}/{filename}:
+    get:
+      operationId: getKmlFireFootprints
+      summary: Get KML fire footprints by region
+      description: >
+        Returns a KMZ file containing color-coded fire footprint polygons for
+        a predefined global region and time span. Footprints are color-coded
+        by detection age: 0-6h, 6-12h, 12-24h, and 24h+.
+      tags:
+        - KML Fire Footprints
+      parameters:
+        - $ref: '#/components/parameters/Region'
+        - $ref: '#/components/parameters/DateSpan'
+        - $ref: '#/components/parameters/KmlSensor'
+        - name: filename
+          in: path
+          required: true
+          description: >
+            KMZ filename in the pattern
+            FirespotArea_{region}_{sensor}_{date_span}.kmz
+          schema:
+            type: string
+            example: FirespotArea_canada_c6.1_24h.kmz
+      responses:
+        '200':
+          description: KMZ file with fire footprint polygons
+          content:
+            application/vnd.google-earth.kmz:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/kml_fire_footprints/:
+    get:
+      operationId: getKmlFireFootprintsQuery
+      summary: Get KML fire footprints via query parameters
+      description: >
+        Returns a KMZ file containing color-coded fire footprint polygons for
+        a predefined global region and time span. This variant uses query
+        parameters instead of path segments.
+      tags:
+        - KML Fire Footprints
+      parameters:
+        - name: region
+          in: query
+          required: true
+          description: Predefined geographic region.
+          schema:
+            $ref: '#/components/schemas/RegionEnum'
+        - name: date_span
+          in: query
+          required: true
+          description: Time span of fire detections to include.
+          schema:
+            $ref: '#/components/schemas/DateSpanEnum'
+        - name: sensor
+          in: query
+          required: true
+          description: Satellite sensor source.
+          schema:
+            $ref: '#/components/schemas/KmlSensorEnum'
+      responses:
+        '200':
+          description: KMZ file with fire footprint polygons
+          content:
+            application/vnd.google-earth.kmz:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/data_availability/csv/{map_key}/{sensor}:
+    get:
+      operationId: getDataAvailability
+      summary: Get data availability by sensor
+      description: >
+        Returns CSV data indicating which dates have Standard Processing (SP)
+        and Near Real-Time (NRT) data available for a specified sensor.
+        Use ALL to retrieve availability for every sensor in a single call.
+      tags:
+        - Data Availability
+      parameters:
+        - $ref: '#/components/parameters/MapKey'
+        - name: sensor
+          in: path
+          required: true
+          description: >
+            Sensor identifier. Use ALL to retrieve availability for all sensors.
+          schema:
+            $ref: '#/components/schemas/SensorWithAllEnum'
+      responses:
+        '200':
+          description: CSV data availability by date and processing type
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DataAvailabilityCSV'
+              example: |
+                sensor,date,sp,nrt
+                MODIS_NRT,2026-06-12,false,true
+                MODIS_SP,2026-06-10,true,false
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+
+  /api/missing_data/{map_key}:
+    get:
+      operationId: getMissingData
+      summary: Get dates with missing satellite data
+      description: >
+        Identifies dates for which satellite fire detection data is absent from
+        the FIRMS database, organized by satellite and data type. Near
+        Real-Time entries only appear for dates beyond the final standard
+        processing date for each satellite.
+      tags:
+        - Missing Data
+      parameters:
+        - $ref: '#/components/parameters/MapKey'
+      responses:
+        '200':
+          description: CSV list of missing data dates by sensor
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/MissingDataCSV'
+              example: |
+                satellite,data_type,date
+                Terra,NRT,2026-05-15
+                Aqua,SP,2026-04-22
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+
+  parameters:
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: >
+        Free MAP_KEY obtained via registration at
+        https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to
+        5000 transactions per 10-minute interval. Larger requests (e.g., 7-day
+        queries) may count as multiple transactions.
+      schema:
+        type: string
+        example: 'd2b4a9e1f3c75820b6da1e4f9c0b3721'
+
+    Source:
+      name: source
+      in: path
+      required: true
+      description: Satellite sensor data source.
+      schema:
+        $ref: '#/components/schemas/SourceEnum'
+
+    AreaCoordinates:
+      name: area_coordinates
+      in: path
+      required: true
+      description: >
+        Bounding box in west,south,east,north format (decimal degrees), or the
+        string "world" for global coverage [-180,-90,180,90].
+      schema:
+        type: string
+        example: '-85,-57,-32,14'
+
+    DayRange:
+      name: day_range
+      in: path
+      required: true
+      description: Number of days to include in the query (1 to 5).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 2
+
+    Region:
+      name: region
+      in: path
+      required: true
+      description: Predefined geographic region.
+      schema:
+        $ref: '#/components/schemas/RegionEnum'
+
+    DateSpan:
+      name: date_span
+      in: path
+      required: true
+      description: Time span of fire detections to include.
+      schema:
+        $ref: '#/components/schemas/DateSpanEnum'
+
+    KmlSensor:
+      name: sensor
+      in: path
+      required: true
+      description: Satellite sensor source for KML footprints.
+      schema:
+        $ref: '#/components/schemas/KmlSensorEnum'
+
+  schemas:
+
+    SourceEnum:
+      type: string
+      description: Satellite sensor data source identifier.
+      enum:
+        - LANDSAT_NRT
+        - MODIS_NRT
+        - MODIS_SP
+        - VIIRS_NOAA20_NRT
+        - VIIRS_NOAA20_SP
+        - VIIRS_NOAA21_NRT
+        - VIIRS_SNPP_NRT
+        - VIIRS_SNPP_SP
+      example: VIIRS_SNPP_NRT
+
+    SensorWithAllEnum:
+      type: string
+      description: Satellite sensor identifier, or ALL for all sensors.
+      enum:
+        - ALL
+        - LANDSAT_NRT
+        - MODIS_NRT
+        - MODIS_SP
+        - VIIRS_NOAA20_NRT
+        - VIIRS_NOAA20_SP
+        - VIIRS_NOAA21_NRT
+        - VIIRS_SNPP_NRT
+        - VIIRS_SNPP_SP
+      example: ALL
+
+    RegionEnum:
+      type: string
+      description: Predefined geographic region for KML fire footprints.
+      enum:
+        - canada
+        - alaska
+        - usa_contiguous_and_hawaii
+        - central_america
+        - south_america
+        - europe
+        - northern_and_central_africa
+        - southern_africa
+        - russia_asia
+        - south_asia
+        - southeast_asia
+        - australia_newzealand
+      example: south_america
+
+    DateSpanEnum:
+      type: string
+      description: Time span for KML fire footprint queries.
+      enum:
+        - 24h
+        - 48h
+        - 72h
+        - 7d
+      example: 24h
+
+    KmlSensorEnum:
+      type: string
+      description: Satellite sensor source for KML footprint data.
+      enum:
+        - c6.1
+        - landsat
+        - suomi-npp-viirs-c2
+        - noaa-20-viirs-c2
+        - noaa-21-viirs-c2
+      example: c6.1
+
+    FireDetectionCSV:
+      type: string
+      description: >
+        CSV-formatted active fire detection data. Columns vary by sensor but
+        typically include latitude, longitude, brightness temperature, scan
+        size, track size, acquisition date/time, satellite name, confidence
+        level, version, brightness T31, fire radiative power (FRP), and
+        day/night flag.
+      example: |
+        latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight
+        -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
+
+    DataAvailabilityCSV:
+      type: string
+      description: >
+        CSV-formatted data availability report indicating whether SP (Standard
+        Processing) and NRT (Near Real-Time) data exist for each date per
+        sensor.
+      example: |
+        sensor,date,sp,nrt
+        MODIS_NRT,2026-06-12,false,true
+
+    MissingDataCSV:
+      type: string
+      description: >
+        CSV-formatted list of dates with missing satellite fire detection data,
+        organized by satellite and data type. NRT entries only appear for dates
+        beyond the last standard processing date.
+      example: |
+        satellite,data_type,date
+        Terra,NRT,2026-05-15
+
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
+
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        text/plain:
+          schema:
+            type: string
+
+    RateLimitExceeded:
+      description: >
+        Rate limit exceeded — more than 5000 transactions in a 10-minute
+        interval. Retry after the interval resets.
+      content:
+        text/plain:
+          schema:
+            type: string

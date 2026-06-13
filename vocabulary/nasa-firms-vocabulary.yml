@@ -1,0 +1,84 @@
+vocabulary:
+  title: NASA FIRMS API Vocabulary
+  description: Key terms and concepts used in the NASA Fire Information for Resource Management System (FIRMS) API.
+  terms:
+
+    - term: MAP_KEY
+      definition: >
+        A free authentication token issued by NASA FIRMS upon registration via
+        email. Required for most API endpoints. Rate-limited to 5000 transactions
+        per 10-minute interval, with larger requests (e.g., 7-day queries) counting
+        as multiple transactions.
+      url: https://firms.modaps.eosdis.nasa.gov/api/map_key/
+
+    - term: MODIS
+      definition: >
+        Moderate Resolution Imaging Spectroradiometer. An instrument on board
+        NASA's Terra and Aqua satellites. FIRMS distributes MODIS active fire
+        detections at 1 km resolution. Available as NRT (Near Real-Time) and
+        SP (Standard Processing) products.
+      url: https://modis.gsfc.nasa.gov/
+
+    - term: VIIRS
+      definition: >
+        Visible Infrared Imaging Radiometer Suite. An instrument on the Suomi-NPP,
+        NOAA-20, and NOAA-21 satellites. FIRMS distributes VIIRS active fire
+        detections at 375 m resolution, providing finer spatial detail than MODIS.
+      url: https://www.earthdata.nasa.gov/eosdis/instruments/viirs
+
+    - term: LANDSAT
+      definition: >
+        A joint USGS/NASA satellite series providing 30 m resolution thermal
+        imagery. FIRMS offers LANDSAT NRT fire detections for the US and Canada
+        only.
+      url: https://www.usgs.gov/landsat-missions
+
+    - term: NRT
+      definition: >
+        Near Real-Time. Fire detection data processed and available within
+        approximately 3 hours of satellite observation. NRT data has undergone
+        less rigorous quality control than Standard Processing data.
+
+    - term: SP
+      definition: >
+        Standard Processing. Fire detection data that has undergone full
+        reprocessing and quality control. SP data is more accurate but is
+        typically available with a longer delay than NRT data.
+
+    - term: URT
+      definition: >
+        Ultra Real-Time. A subset of NRT data available within approximately
+        60 seconds of satellite observation, currently limited to US and Canadian
+        coverage. URT detections are removed when corresponding NRT data is
+        processed.
+
+    - term: FRP
+      definition: >
+        Fire Radiative Power (megawatts). A measure of the thermal energy output
+        of a fire. Higher FRP values indicate more intense fires.
+
+    - term: Bounding Box
+      definition: >
+        A rectangular geographic area defined by four coordinates:
+        west,south,east,north in decimal degrees (WGS84). Used to specify the
+        area of interest in area fire detection queries. The special value "world"
+        represents the full global extent [-180,-90,180,90].
+
+    - term: KMZ
+      definition: >
+        A compressed KML (Keyhole Markup Language) file format used by Google
+        Earth and other GIS tools. FIRMS KMZ files contain color-coded fire
+        footprint polygons organized by detection age (0-6h, 6-12h, 12-24h, 24h+).
+
+    - term: Confidence
+      definition: >
+        A quality flag indicating the reliability of a fire detection. For MODIS:
+        l (low), n (nominal), h (high), or a numeric 0-100 scale. For VIIRS:
+        low, nominal, or high. Low-confidence detections may include false alarms
+        such as sunglint, industrial heat sources, or volcanic activity.
+
+    - term: DAY_RANGE
+      definition: >
+        The number of days to include in an area fire detection query, from 1 to
+        5 days. Without a start date, the range extends backward from today.
+        With a start date, it extends forward from that date.

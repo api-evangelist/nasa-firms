@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nasa-firms/main/json-schema/fire-detection.json",
+  "title": "Fire Detection Record",
+  "description": "A single active fire detection hotspot record from NASA FIRMS, as returned in the CSV area fire detections endpoint. Field names and units follow MODIS/VIIRS standard column naming.",
+  "type": "object",
+  "properties": {
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Center latitude of the fire detection pixel in decimal degrees (WGS84)."
+    },
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180,
+      "description": "Center longitude of the fire detection pixel in decimal degrees (WGS84)."
+    },
+    "brightness": {
+      "type": "number",
+      "description": "Channel 21/22 brightness temperature (Kelvin) for MODIS, or I-4 brightness temperature (Kelvin) for VIIRS."
+    },
+    "scan": {
+      "type": "number",
+      "description": "Along-scan pixel size in kilometers."
+    },
+    "track": {
+      "type": "number",
+      "description": "Along-track pixel size in kilometers."
+    },
+    "acq_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of satellite acquisition in YYYY-MM-DD format."
+    },
+    "acq_time": {
+      "type": "string",
+      "pattern": "^[0-2][0-9][0-5][0-9]$",
+      "description": "Time of satellite acquisition in HHMM UTC format."
+    },
+    "satellite": {
+      "type": "string",
+      "description": "Name of the satellite (e.g., Terra, Aqua, Suomi-NPP, NOAA-20, NOAA-21, LANDSAT-8).",
+      "examples": ["Terra", "Aqua", "Suomi-NPP", "NOAA-20", "NOAA-21"]
+    },
+    "confidence": {
+      "type": "string",
+      "description": "Detection confidence level. For MODIS: numeric 0-100 or categorical (l=low, n=nominal, h=high). For VIIRS: low, nominal, high.",
+      "examples": ["h", "n", "l", "high", "nominal", "low"]
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the FIRMS data collection and processing type (e.g., 6.1NRT, 6.1SP).",
+      "examples": ["6.1NRT", "6.1SP", "2.0NRT"]
+    },
+    "bright_t31": {
+      "type": "number",
+      "description": "Channel 31 brightness temperature (Kelvin) for MODIS detections."
+    },
+    "frp": {
+      "type": "number",
+      "description": "Fire Radiative Power (MW) — measure of fire intensity."
+    },
+    "daynight": {
+      "type": "string",
+      "enum": ["D", "N"],
+      "description": "Day (D) or Night (N) flag at time of satellite acquisition."
+    }
+  },
+  "required": ["latitude", "longitude", "acq_date", "acq_time", "satellite"],
+  "additionalProperties": true
+}

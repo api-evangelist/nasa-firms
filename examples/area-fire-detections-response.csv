@@ -1,0 +1,4 @@
+latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight
+-12.3450,-67.8900,325.60,0.42,0.36,2026-06-12,1345,Suomi-NPP,VIIRS,nominal,2.0NRT,290.30,15.20,D
+-12.3510,-67.8820,331.20,0.42,0.36,2026-06-12,1345,Suomi-NPP,VIIRS,high,2.0NRT,291.10,22.80,D
+-15.6720,-72.4400,318.90,0.42,0.36,2026-06-12,1345,Suomi-NPP,VIIRS,low,2.0NRT,285.70,8.50,N

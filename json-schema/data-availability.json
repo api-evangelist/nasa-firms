@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/nasa-firms/main/json-schema/data-availability.json",
+  "title": "Data Availability Record",
+  "description": "A single record from the NASA FIRMS Data Availability CSV endpoint, indicating whether Standard Processing (SP) or Near Real-Time (NRT) data exists for a given sensor and date.",
+  "type": "object",
+  "properties": {
+    "sensor": {
+      "type": "string",
+      "description": "Satellite sensor identifier.",
+      "enum": [
+        "LANDSAT_NRT",
+        "MODIS_NRT",
+        "MODIS_SP",
+        "VIIRS_NOAA20_NRT",
+        "VIIRS_NOAA20_SP",
+        "VIIRS_NOAA21_NRT",
+        "VIIRS_SNPP_NRT",
+        "VIIRS_SNPP_SP"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of satellite data in YYYY-MM-DD format."
+    },
+    "sp": {
+      "type": "boolean",
+      "description": "Whether Standard Processing (SP) data is available for this sensor and date."
+    },
+    "nrt": {
+      "type": "boolean",
+      "description": "Whether Near Real-Time (NRT) data is available for this sensor and date."
+    }
+  },
+  "required": ["sensor", "date"],
+  "additionalProperties": true
+}
