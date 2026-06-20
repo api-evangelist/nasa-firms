@@ -9,7 +9,7 @@ description: >
   area-based bounding box queries, KML fire footprints by region, data
   availability checks, and missing data identification. Free MAP_KEY
   registration required.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/nasa-firms/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -38,7 +38,7 @@ apis:
       LANDSAT NRT (US/Canada only). Day range is 1 to 5 days. An optional
       specific start date can be supplied; without it the query returns data
       ending at the most recent available.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
     baseURL: https://firms.modaps.eosdis.nasa.gov
     tags:
@@ -71,7 +71,7 @@ apis:
       Sensor options include MODIS c6.1, LANDSAT 30m, and VIIRS 375m products
       from S-NPP, NOAA-20, and NOAA-21. Footprints are color-coded by detection
       age: 0-6h, 6-12h, 12-24h, and 24h+.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
     baseURL: https://firms.modaps.eosdis.nasa.gov
     tags:
@@ -99,7 +99,7 @@ apis:
       individual sensor queries or ALL to retrieve availability for every sensor
       in a single call. Useful for determining the temporal coverage before
       submitting fire detection queries.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
     baseURL: https://firms.modaps.eosdis.nasa.gov
     tags:
@@ -127,7 +127,7 @@ apis:
       represents one day of missing data for a particular sensor. Near
       Real-Time entries only appear for dates beyond the final standard
       processing date for each satellite.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
     baseURL: https://firms.modaps.eosdis.nasa.gov
     tags:
