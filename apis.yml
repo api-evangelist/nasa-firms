@@ -55,9 +55,9 @@ apis:
         url: openapi/nasa-firms-openapi.yml
       - type: JSONSchema
         url: json-schema/fire-detection.json
-      - type: Example
+      - type: Examples
         url: examples/area-fire-detections-request.json
-      - type: Example
+      - type: Examples
         url: examples/area-fire-detections-response.csv
     contact:
       - FN: NASA FIRMS Support
@@ -85,7 +85,7 @@ apis:
         url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
       - type: OpenAPI
         url: openapi/nasa-firms-openapi.yml
-      - type: Example
+      - type: Examples
         url: examples/kml-fire-footprints-request.json
     contact:
       - FN: NASA FIRMS Support
@@ -113,7 +113,7 @@ apis:
         url: openapi/nasa-firms-openapi.yml
       - type: JSONSchema
         url: json-schema/data-availability.json
-      - type: Example
+      - type: Examples
         url: examples/data-availability-request.json
     contact:
       - FN: NASA FIRMS Support
