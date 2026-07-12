@@ -145,6 +145,8 @@ apis:
 
 common:
 
+  - type: DomainSecurity
+    url: security/nasa-firms-domain-security.yml
   - type: Website
     url: https://firms.modaps.eosdis.nasa.gov/
 
