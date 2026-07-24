@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: NASA FIRMS Area Fire Detections Missing Data API
+  description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
+
+    '
+  version: '4.0'
+  contact:
+    name: NASA FIRMS Support
+    url: https://firms.modaps.eosdis.nasa.gov/contact/
+  termsOfService: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+  license:
+    name: NASA Open Data
+    url: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+servers:
+- url: https://firms.modaps.eosdis.nasa.gov
+  description: NASA FIRMS production server
+tags:
+- name: Missing Data
+  description: Identify dates with absent satellite fire detection data
+paths:
+  /api/missing_data/{map_key}:
+    get:
+      operationId: getMissingData
+      summary: Get dates with missing satellite data
+      description: 'Identifies dates for which satellite fire detection data is absent from the FIRMS database, organized by satellite and data type. Near Real-Time entries only appear for dates beyond the final standard processing date for each satellite.
+
+        '
+      tags:
+      - Missing Data
+      parameters:
+      - $ref: '#/components/parameters/MapKey'
+      responses:
+        '200':
+          description: CSV list of missing data dates by sensor
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/MissingDataCSV'
+              example: 'satellite,data_type,date
+
+                Terra,NRT,2026-05-15
+
+                Aqua,SP,2026-04-22
+
+                '
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    MissingDataCSV:
+      type: string
+      description: 'CSV-formatted list of dates with missing satellite fire detection data, organized by satellite and data type. NRT entries only appear for dates beyond the last standard processing date.
+
+        '
+      example: 'satellite,data_type,date
+
+        Terra,NRT,2026-05-15
+
+        '
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
+  parameters:
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
+
+        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721

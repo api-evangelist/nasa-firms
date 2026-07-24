@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: NASA FIRMS Area Fire Detections Data Availability API
+  description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
+
+    '
+  version: '4.0'
+  contact:
+    name: NASA FIRMS Support
+    url: https://firms.modaps.eosdis.nasa.gov/contact/
+  termsOfService: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+  license:
+    name: NASA Open Data
+    url: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+servers:
+- url: https://firms.modaps.eosdis.nasa.gov
+  description: NASA FIRMS production server
+tags:
+- name: Data Availability
+  description: Check which dates have Standard Processing or Near Real-Time data
+paths:
+  /api/data_availability/csv/{map_key}/{sensor}:
+    get:
+      operationId: getDataAvailability
+      summary: Get data availability by sensor
+      description: 'Returns CSV data indicating which dates have Standard Processing (SP) and Near Real-Time (NRT) data available for a specified sensor. Use ALL to retrieve availability for every sensor in a single call.
+
+        '
+      tags:
+      - Data Availability
+      parameters:
+      - $ref: '#/components/parameters/MapKey'
+      - name: sensor
+        in: path
+        required: true
+        description: 'Sensor identifier. Use ALL to retrieve availability for all sensors.
+
+          '
+        schema:
+          $ref: '#/components/schemas/SensorWithAllEnum'
+      responses:
+        '200':
+          description: CSV data availability by date and processing type
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DataAvailabilityCSV'
+              example: 'sensor,date,sp,nrt
+
+                MODIS_NRT,2026-06-12,false,true
+
+                MODIS_SP,2026-06-10,true,false
+
+                '
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
+    RateLimitExceeded:
+      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
+
+        '
+      content:
+        text/plain:
+          schema:
+            type: string
+  parameters:
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
+
+        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
+  schemas:
+    DataAvailabilityCSV:
+      type: string
+      description: 'CSV-formatted data availability report indicating whether SP (Standard Processing) and NRT (Near Real-Time) data exist for each date per sensor.
+
+        '
+      example: 'sensor,date,sp,nrt
+
+        MODIS_NRT,2026-06-12,false,true
+
+        '
+    SensorWithAllEnum:
+      type: string
+      description: Satellite sensor identifier, or ALL for all sensors.
+      enum:
+      - ALL
+      - LANDSAT_NRT
+      - MODIS_NRT
+      - MODIS_SP
+      - VIIRS_NOAA20_NRT
+      - VIIRS_NOAA20_SP
+      - VIIRS_NOAA21_NRT
+      - VIIRS_SNPP_NRT
+      - VIIRS_SNPP_SP
+      example: ALL

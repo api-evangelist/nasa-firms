@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: NASA FIRMS Area Fire Detections API
+  description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
+
+    '
+  version: '4.0'
+  contact:
+    name: NASA FIRMS Support
+    url: https://firms.modaps.eosdis.nasa.gov/contact/
+  termsOfService: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+  license:
+    name: NASA Open Data
+    url: https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy
+servers:
+- url: https://firms.modaps.eosdis.nasa.gov
+  description: NASA FIRMS production server
+tags:
+- name: Area Fire Detections
+  description: Active fire hotspot detections within a bounding box area
+paths:
+  /api/area/csv/{map_key}/{source}/{area_coordinates}/{day_range}:
+    get:
+      operationId: getAreaFireDetections
+      summary: Get area fire detections (most recent)
+      description: 'Returns active fire detection hotspots within the specified bounding box for the most recent DAY_RANGE days (today back to today minus DAY_RANGE-1). Results are returned in CSV format.
+
+        '
+      tags:
+      - Area Fire Detections
+      parameters:
+      - $ref: '#/components/parameters/MapKey'
+      - $ref: '#/components/parameters/Source'
+      - $ref: '#/components/parameters/AreaCoordinates'
+      - $ref: '#/components/parameters/DayRange'
+      responses:
+        '200':
+          description: CSV fire detection data
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/FireDetectionCSV'
+              example: 'latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight
+
+                -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
+
+                '
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /api/area/csv/{map_key}/{source}/{area_coordinates}/{day_range}/{date}:
+    get:
+      operationId: getAreaFireDetectionsByDate
+      summary: Get area fire detections starting from a specific date
+      description: 'Returns active fire detection hotspots within the specified bounding box starting from the given DATE and spanning DAY_RANGE days forward (DATE to DATE + DAY_RANGE - 1). Results are returned in CSV format.
+
+        '
+      tags:
+      - Area Fire Detections
+      parameters:
+      - $ref: '#/components/parameters/MapKey'
+      - $ref: '#/components/parameters/Source'
+      - $ref: '#/components/parameters/AreaCoordinates'
+      - $ref: '#/components/parameters/DayRange'
+      - name: date
+        in: path
+        required: true
+        description: Start date for the query in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+          example: '2026-06-01'
+      responses:
+        '200':
+          description: CSV fire detection data for the specified date range
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/FireDetectionCSV'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+components:
+  parameters:
+    DayRange:
+      name: day_range
+      in: path
+      required: true
+      description: Number of days to include in the query (1 to 5).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 2
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
+
+        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
+    Source:
+      name: source
+      in: path
+      required: true
+      description: Satellite sensor data source.
+      schema:
+        $ref: '#/components/schemas/SourceEnum'
+    AreaCoordinates:
+      name: area_coordinates
+      in: path
+      required: true
+      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
+
+        '
+      schema:
+        type: string
+        example: -85,-57,-32,14
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
+    RateLimitExceeded:
+      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
+
+        '
+      content:
+        text/plain:
+          schema:
+            type: string
+  schemas:
+    FireDetectionCSV:
+      type: string
+      description: 'CSV-formatted active fire detection data. Columns vary by sensor but typically include latitude, longitude, brightness temperature, scan size, track size, acquisition date/time, satellite name, confidence level, version, brightness T31, fire radiative power (FRP), and day/night flag.
+
+        '
+      example: 'latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight
+
+        -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
+
+        '
+    SourceEnum:
+      type: string
+      description: Satellite sensor data source identifier.
+      enum:
+      - LANDSAT_NRT
+      - MODIS_NRT
+      - MODIS_SP
+      - VIIRS_NOAA20_NRT
+      - VIIRS_NOAA20_SP
+      - VIIRS_NOAA21_NRT
+      - VIIRS_SNPP_NRT
+      - VIIRS_SNPP_SP
+      example: VIIRS_SNPP_NRT
