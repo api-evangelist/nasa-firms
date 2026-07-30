@@ -9,7 +9,19 @@ description: >
   area-based bounding box queries, KML fire footprints by region, data
   availability checks, and missing data identification. Free MAP_KEY
   registration required.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nasa-firms.png
 url: https://raw.githubusercontent.com/api-evangelist/nasa-firms/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -28,121 +40,126 @@ tags:
   - Science
 
 apis:
-
-  - aid: nasa-firms:area-fire-detections
-    name: FIRMS Area Fire Detections API
-    description: >
-      Returns active fire detection hotspots for a defined bounding box area,
-      satellite source, and day range in CSV format. Supports all available
-      sensors including MODIS NRT/SP, VIIRS NOAA-20/NOAA-21/S-NPP NRT/SP, and
-      LANDSAT NRT (US/Canada only). Day range is 1 to 5 days. An optional
-      specific start date can be supplied; without it the query returns data
-      ending at the most recent available.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
-    baseURL: https://firms.modaps.eosdis.nasa.gov
-    tags:
-      - Fire Detection
-      - MODIS
-      - VIIRS
-      - LANDSAT
-      - CSV
-      - Bounding Box
-    properties:
-      - type: Documentation
-        url: https://firms.modaps.eosdis.nasa.gov/api/area/
-      - type: OpenAPI
-        url: openapi/nasa-firms-openapi.yml
-      - type: JSONSchema
-        url: json-schema/fire-detection.json
-      - type: Examples
-        url: examples/area-fire-detections-request.json
-      - type: Examples
-        url: examples/area-fire-detections-response.csv
-    contact:
-      - FN: NASA FIRMS Support
-        url: https://firms.modaps.eosdis.nasa.gov/contact/
-
-  - aid: nasa-firms:kml-fire-footprints
-    name: FIRMS KML Fire Footprints API
-    description: >
-      Returns KMZ files containing color-coded fire footprint polygons for
-      predefined global regions and time spans (24, 48, 72 hours or 7 days).
-      Sensor options include MODIS c6.1, LANDSAT 30m, and VIIRS 375m products
-      from S-NPP, NOAA-20, and NOAA-21. Footprints are color-coded by detection
-      age: 0-6h, 6-12h, 12-24h, and 24h+.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
-    baseURL: https://firms.modaps.eosdis.nasa.gov
-    tags:
-      - KML
-      - KMZ
-      - Fire Footprints
-      - Geospatial
-      - Regional
-    properties:
-      - type: Documentation
-        url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
-      - type: OpenAPI
-        url: openapi/nasa-firms-openapi.yml
-      - type: Examples
-        url: examples/kml-fire-footprints-request.json
-    contact:
-      - FN: NASA FIRMS Support
-        url: https://firms.modaps.eosdis.nasa.gov/contact/
-
-  - aid: nasa-firms:data-availability
-    name: FIRMS Data Availability API
-    description: >
-      Returns CSV data indicating which dates have Standard Processing (SP) and
-      Near Real-Time (NRT) data available for a specified sensor. Supports
-      individual sensor queries or ALL to retrieve availability for every sensor
-      in a single call. Useful for determining the temporal coverage before
-      submitting fire detection queries.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
-    baseURL: https://firms.modaps.eosdis.nasa.gov
-    tags:
-      - Data Availability
-      - Sensor Coverage
-      - CSV
-    properties:
-      - type: Documentation
-        url: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
-      - type: OpenAPI
-        url: openapi/nasa-firms-openapi.yml
-      - type: JSONSchema
-        url: json-schema/data-availability.json
-      - type: Examples
-        url: examples/data-availability-request.json
-    contact:
-      - FN: NASA FIRMS Support
-        url: https://firms.modaps.eosdis.nasa.gov/contact/
-
-  - aid: nasa-firms:missing-data
-    name: FIRMS Missing Data API
-    description: >
-      Identifies dates for which satellite fire detection data is absent from
-      the database, organized by satellite and data type. Each response line
-      represents one day of missing data for a particular sensor. Near
-      Real-Time entries only appear for dates beyond the final standard
-      processing date for each satellite.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
-    baseURL: https://firms.modaps.eosdis.nasa.gov
-    tags:
-      - Missing Data
-      - Data Quality
-      - Satellite Coverage
-    properties:
-      - type: Documentation
-        url: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
-      - type: OpenAPI
-        url: openapi/nasa-firms-openapi.yml
-    contact:
-      - FN: NASA FIRMS Support
-        url: https://firms.modaps.eosdis.nasa.gov/contact/
-
+- aid: nasa-firms:nasa-firms-area-fire-detections-api
+  name: NASA FIRMS Area Fire Detections API
+  description: Active fire hotspot detections within a bounding box area
+  humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
+  baseURL: https://firms.modaps.eosdis.nasa.gov
+  tags:
+  - Area Fire Detections
+  properties:
+  - type: OpenAPI
+    url: openapi/nasa-firms-area-fire-detections-api-openapi.yml
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+  - type: JSONSchema
+    url: json-schema/fire-detection.json
+  - type: Examples
+    url: examples/area-fire-detections-request.json
+  - type: Examples
+    url: examples/area-fire-detections-response.csv
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+  - type: Examples
+    url: examples/kml-fire-footprints-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
+  - type: JSONSchema
+    url: json-schema/data-availability.json
+  - type: Examples
+    url: examples/data-availability-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
+- aid: nasa-firms:nasa-firms-data-availability-api
+  name: NASA FIRMS Data Availability API
+  description: Check which dates have Standard Processing or Near Real-Time data
+  humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
+  baseURL: https://firms.modaps.eosdis.nasa.gov
+  tags:
+  - Data Availability
+  properties:
+  - type: OpenAPI
+    url: openapi/nasa-firms-data-availability-api-openapi.yml
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+  - type: JSONSchema
+    url: json-schema/fire-detection.json
+  - type: Examples
+    url: examples/area-fire-detections-request.json
+  - type: Examples
+    url: examples/area-fire-detections-response.csv
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+  - type: Examples
+    url: examples/kml-fire-footprints-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
+  - type: JSONSchema
+    url: json-schema/data-availability.json
+  - type: Examples
+    url: examples/data-availability-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
+- aid: nasa-firms:nasa-firms-kml-fire-footprints-api
+  name: NASA FIRMS KML Fire Footprints API
+  description: KMZ files containing color-coded fire footprint polygons by region
+  humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
+  baseURL: https://firms.modaps.eosdis.nasa.gov
+  tags:
+  - KML Fire Footprints
+  properties:
+  - type: OpenAPI
+    url: openapi/nasa-firms-kml-fire-footprints-api-openapi.yml
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+  - type: JSONSchema
+    url: json-schema/fire-detection.json
+  - type: Examples
+    url: examples/area-fire-detections-request.json
+  - type: Examples
+    url: examples/area-fire-detections-response.csv
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+  - type: Examples
+    url: examples/kml-fire-footprints-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
+  - type: JSONSchema
+    url: json-schema/data-availability.json
+  - type: Examples
+    url: examples/data-availability-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
+- aid: nasa-firms:nasa-firms-missing-data-api
+  name: NASA FIRMS Missing Data API
+  description: Identify dates with absent satellite fire detection data
+  humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
+  baseURL: https://firms.modaps.eosdis.nasa.gov
+  tags:
+  - Missing Data
+  properties:
+  - type: OpenAPI
+    url: openapi/nasa-firms-missing-data-api-openapi.yml
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/area/
+  - type: JSONSchema
+    url: json-schema/fire-detection.json
+  - type: Examples
+    url: examples/area-fire-detections-request.json
+  - type: Examples
+    url: examples/area-fire-detections-response.csv
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/
+  - type: Examples
+    url: examples/kml-fire-footprints-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/data_availability/
+  - type: JSONSchema
+    url: json-schema/data-availability.json
+  - type: Examples
+    url: examples/data-availability-request.json
+  - type: Documentation
+    url: https://firms.modaps.eosdis.nasa.gov/api/missing_data/
 common:
 
   - type: AgenticAccess
