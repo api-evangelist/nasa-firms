@@ -1,0 +1,20 @@
+{
+  "provider": "nasa-firms",
+  "sources": [
+    "nasa-firms-area-fire-detections-api-openapi.yml",
+    "nasa-firms-data-availability-api-openapi.yml",
+    "nasa-firms-kml-fire-footprints-api-openapi.yml",
+    "nasa-firms-missing-data-api-openapi.yml"
+  ],
+  "outputs": [
+    "nasa-firms-area-fire-detections-api-openapi.yml",
+    "nasa-firms-data-availability-api-openapi.yml",
+    "nasa-firms-kml-fire-footprints-api-openapi.yml",
+    "nasa-firms-missing-data-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
