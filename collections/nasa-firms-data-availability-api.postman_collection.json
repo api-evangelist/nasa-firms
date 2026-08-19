@@ -1,0 +1,302 @@
+{
+  "item": [
+    {
+      "id": "d98ff41b-d58d-4e7f-a6a2-30cca89fd494",
+      "name": "Data Availability",
+      "description": {
+        "content": "Check which dates have Standard Processing or Near Real-Time data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32806adc-456b-48e0-a266-69882642b718",
+          "name": "Get data availability by sensor",
+          "request": {
+            "name": "Get data availability by sensor",
+            "description": {
+              "content": "Returns CSV data indicating which dates have Standard Processing (SP) and Near Real-Time (NRT) data available for a specified sensor. Use ALL to retrieve availability for every sensor in a single call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "data_availability",
+                "csv",
+                ":map_key",
+                ":sensor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "map_key",
+                  "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sensor",
+                  "description": "(Required) Sensor identifier. Use ALL to retrieve availability for all sensors.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a7138b9-5f7a-4744-8319-3de57d79e9a8",
+              "name": "CSV data availability by date and processing type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "data_availability",
+                    "csv",
+                    ":map_key",
+                    ":sensor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sensor",
+                      "description": "(Required) Sensor identifier. Use ALL to retrieve availability for all sensors.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "sensor,date,sp,nrt\nMODIS_NRT,2026-06-12,false,true\nMODIS_SP,2026-06-10,true,false\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "452ee565-ffd5-4dfa-b8b3-8adb93fd4268",
+              "name": "Bad request — invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "data_availability",
+                    "csv",
+                    ":map_key",
+                    ":sensor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sensor",
+                      "description": "(Required) Sensor identifier. Use ALL to retrieve availability for all sensors.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "30dba574-2d12-4113-94cd-cb84faf7d8f6",
+              "name": "Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "data_availability",
+                    "csv",
+                    ":map_key",
+                    ":sensor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sensor",
+                      "description": "(Required) Sensor identifier. Use ALL to retrieve availability for all sensors.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db252acf-1369-4042-b34d-402bf3ccefd5",
+              "name": "Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "data_availability",
+                    "csv",
+                    ":map_key",
+                    ":sensor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sensor",
+                      "description": "(Required) Sensor identifier. Use ALL to retrieve availability for all sensors.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://firms.modaps.eosdis.nasa.gov",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "94821486-bc16-47c5-9f9c-88660094a8a7",
+    "name": "NASA FIRMS Area Fire Detections Data Availability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.\n\n\nContact Support:\n Name: NASA FIRMS Support",
+      "type": "text/plain"
+    }
+  }
+}

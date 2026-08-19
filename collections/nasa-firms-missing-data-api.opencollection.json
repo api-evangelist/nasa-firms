@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NASA FIRMS Area Fire Detections Missing Data API",
+    "version": "4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Missing Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get dates with missing satellite data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://firms.modaps.eosdis.nasa.gov/api/missing_data/:map_key",
+            "params": [
+              {
+                "name": "map_key",
+                "value": "",
+                "type": "path",
+                "description": "Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+              }
+            ]
+          },
+          "docs": "Identifies dates for which satellite fire detection data is absent from the FIRMS database, organized by satellite and data type. Near Real-Time entries only appear for dates beyond the final standard processing date for each satellite.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

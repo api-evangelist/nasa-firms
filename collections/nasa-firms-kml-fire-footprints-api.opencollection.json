@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NASA FIRMS Area Fire Detections KML Fire Footprints API",
+    "version": "4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "KML Fire Footprints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get KML fire footprints by region",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/:region/:date_span/:sensor/:filename",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "Predefined geographic region."
+              },
+              {
+                "name": "date_span",
+                "value": "",
+                "type": "path",
+                "description": "Time span of fire detections to include."
+              },
+              {
+                "name": "sensor",
+                "value": "",
+                "type": "path",
+                "description": "Satellite sensor source for KML footprints."
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "path",
+                "description": "KMZ filename in the pattern FirespotArea_{region}_{sensor}_{date_span}.kmz\n"
+              }
+            ]
+          },
+          "docs": "Returns a KMZ file containing color-coded fire footprint polygons for a predefined global region and time span. Footprints are color-coded by detection age: 0-6h, 6-12h, 12-24h, and 24h+.\n"
+        },
+        {
+          "info": {
+            "name": "Get KML fire footprints via query parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Predefined geographic region."
+              },
+              {
+                "name": "date_span",
+                "value": "",
+                "type": "query",
+                "description": "Time span of fire detections to include."
+              },
+              {
+                "name": "sensor",
+                "value": "",
+                "type": "query",
+                "description": "Satellite sensor source."
+              }
+            ]
+          },
+          "docs": "Returns a KMZ file containing color-coded fire footprint polygons for a predefined global region and time span. This variant uses query parameters instead of path segments.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

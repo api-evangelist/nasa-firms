@@ -1,0 +1,772 @@
+{
+  "item": [
+    {
+      "id": "b92c7159-cebe-4999-9e97-aa940572ccb9",
+      "name": "Area Fire Detections",
+      "description": {
+        "content": "Active fire hotspot detections within a bounding box area",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "986c7271-dfff-4f3e-8985-4bae2eb88e7d",
+          "name": "Get area fire detections (most recent)",
+          "request": {
+            "name": "Get area fire detections (most recent)",
+            "description": {
+              "content": "Returns active fire detection hotspots within the specified bounding box for the most recent DAY_RANGE days (today back to today minus DAY_RANGE-1). Results are returned in CSV format.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "area",
+                "csv",
+                ":map_key",
+                ":source",
+                ":area_coordinates",
+                ":day_range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "map_key",
+                  "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) Satellite sensor data source."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "area_coordinates",
+                  "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "day_range",
+                  "description": "(Required) Number of days to include in the query (1 to 5)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5bffb25-7f91-4ac4-a93e-328a749c80a8",
+              "name": "CSV fire detection data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight\n-12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75844fbc-e21b-41a7-bb1d-a6dfb44d9fef",
+              "name": "Bad request — invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8d48312b-dad7-4978-9d04-8da03b3a6e33",
+              "name": "Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c19e87c-c89f-4eb8-bbc1-3c1ba2b70884",
+              "name": "Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90261b9a-c05b-4c00-8fc8-8d6b2ac79097",
+          "name": "Get area fire detections starting from a specific date",
+          "request": {
+            "name": "Get area fire detections starting from a specific date",
+            "description": {
+              "content": "Returns active fire detection hotspots within the specified bounding box starting from the given DATE and spanning DAY_RANGE days forward (DATE to DATE + DAY_RANGE - 1). Results are returned in CSV format.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "area",
+                "csv",
+                ":map_key",
+                ":source",
+                ":area_coordinates",
+                ":day_range",
+                ":date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "map_key",
+                  "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) Satellite sensor data source."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "area_coordinates",
+                  "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "day_range",
+                  "description": "(Required) Number of days to include in the query (1 to 5)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) Start date for the query in YYYY-MM-DD format."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3ab77f0-a707-4177-94bc-86616ab6768b",
+              "name": "CSV fire detection data for the specified date range",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Start date for the query in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight\n-12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d21f64f3-d57c-4016-9edc-b0f82c776c5c",
+              "name": "Bad request — invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Start date for the query in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f13ab838-fd2b-4a5e-8ff8-c0949eda4551",
+              "name": "Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Start date for the query in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d60f253-0b74-4bdb-b591-ccd0a866da19",
+              "name": "Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "area",
+                    "csv",
+                    ":map_key",
+                    ":source",
+                    ":area_coordinates",
+                    ":day_range",
+                    ":date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "map_key",
+                      "description": "(Required) Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) Satellite sensor data source."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "area_coordinates",
+                      "description": "(Required) Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "day_range",
+                      "description": "(Required) Number of days to include in the query (1 to 5)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Start date for the query in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://firms.modaps.eosdis.nasa.gov",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0074638a-9e38-4b74-9199-00415f47492f",
+    "name": "NASA FIRMS Area Fire Detections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.\n\n\nContact Support:\n Name: NASA FIRMS Support",
+      "type": "text/plain"
+    }
+  }
+}

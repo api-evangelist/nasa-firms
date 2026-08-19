@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NASA FIRMS Area Fire Detections API",
+    "version": "4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Area Fire Detections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get area fire detections (most recent)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/:map_key/:source/:area_coordinates/:day_range",
+            "params": [
+              {
+                "name": "map_key",
+                "value": "",
+                "type": "path",
+                "description": "Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "Satellite sensor data source."
+              },
+              {
+                "name": "area_coordinates",
+                "value": "",
+                "type": "path",
+                "description": "Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+              },
+              {
+                "name": "day_range",
+                "value": "",
+                "type": "path",
+                "description": "Number of days to include in the query (1 to 5)."
+              }
+            ]
+          },
+          "docs": "Returns active fire detection hotspots within the specified bounding box for the most recent DAY_RANGE days (today back to today minus DAY_RANGE-1). Results are returned in CSV format.\n"
+        },
+        {
+          "info": {
+            "name": "Get area fire detections starting from a specific date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/:map_key/:source/:area_coordinates/:day_range/:date",
+            "params": [
+              {
+                "name": "map_key",
+                "value": "",
+                "type": "path",
+                "description": "Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.\n"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "path",
+                "description": "Satellite sensor data source."
+              },
+              {
+                "name": "area_coordinates",
+                "value": "",
+                "type": "path",
+                "description": "Bounding box in west,south,east,north format (decimal degrees), or the string \"world\" for global coverage [-180,-90,180,90].\n"
+              },
+              {
+                "name": "day_range",
+                "value": "",
+                "type": "path",
+                "description": "Number of days to include in the query (1 to 5)."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "path",
+                "description": "Start date for the query in YYYY-MM-DD format."
+              }
+            ]
+          },
+          "docs": "Returns active fire detection hotspots within the specified bounding box starting from the given DATE and spanning DAY_RANGE days forward (DATE to DATE + DAY_RANGE - 1). Results are returned in CSV format.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
