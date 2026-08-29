@@ -9,6 +9,18 @@ description: >
   area-based bounding box queries, KML fire footprints by region, data
   availability checks, and missing data identification. Free MAP_KEY
   registration required.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
