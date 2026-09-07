@@ -15,6 +15,12 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "nasa-firms-area-fire-detections-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "nasa-firms-data-availability-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "nasa-firms-kml-fire-footprints-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "nasa-firms-missing-data-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

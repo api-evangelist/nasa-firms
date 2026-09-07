@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: NASA FIRMS Area Fire Detections KML Fire Footprints API
   description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
@@ -92,56 +92,6 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist.
-      content:
-        text/plain:
-          schema:
-            type: string
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        text/plain:
-          schema:
-            type: string
-  schemas:
-    KmlSensorEnum:
-      type: string
-      description: Satellite sensor source for KML footprint data.
-      enum:
-      - c6.1
-      - landsat
-      - suomi-npp-viirs-c2
-      - noaa-20-viirs-c2
-      - noaa-21-viirs-c2
-      example: c6.1
-    DateSpanEnum:
-      type: string
-      description: Time span for KML fire footprint queries.
-      enum:
-      - 24h
-      - 48h
-      - 72h
-      - 7d
-      example: 24h
-    RegionEnum:
-      type: string
-      description: Predefined geographic region for KML fire footprints.
-      enum:
-      - canada
-      - alaska
-      - usa_contiguous_and_hawaii
-      - central_america
-      - south_america
-      - europe
-      - northern_and_central_africa
-      - southern_africa
-      - russia_asia
-      - south_asia
-      - southeast_asia
-      - australia_newzealand
-      example: south_america
   parameters:
     DateSpan:
       name: date_span
@@ -164,3 +114,53 @@ components:
       description: Predefined geographic region.
       schema:
         $ref: '#/components/schemas/RegionEnum'
+  schemas:
+    RegionEnum:
+      type: string
+      description: Predefined geographic region for KML fire footprints.
+      enum:
+      - canada
+      - alaska
+      - usa_contiguous_and_hawaii
+      - central_america
+      - south_america
+      - europe
+      - northern_and_central_africa
+      - southern_africa
+      - russia_asia
+      - south_asia
+      - southeast_asia
+      - australia_newzealand
+      example: south_america
+    DateSpanEnum:
+      type: string
+      description: Time span for KML fire footprint queries.
+      enum:
+      - 24h
+      - 48h
+      - 72h
+      - 7d
+      example: 24h
+    KmlSensorEnum:
+      type: string
+      description: Satellite sensor source for KML footprint data.
+      enum:
+      - c6.1
+      - landsat
+      - suomi-npp-viirs-c2
+      - noaa-20-viirs-c2
+      - noaa-21-viirs-c2
+      example: c6.1
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        text/plain:
+          schema:
+            type: string
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string

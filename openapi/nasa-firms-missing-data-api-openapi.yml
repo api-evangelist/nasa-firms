@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: NASA FIRMS Area Fire Detections Missing Data API
   description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
@@ -49,26 +49,15 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    MissingDataCSV:
-      type: string
-      description: 'CSV-formatted list of dates with missing satellite fire detection data, organized by satellite and data type. NRT entries only appear for dates beyond the last standard processing date.
-
-        '
-      example: 'satellite,data_type,date
-
-        Terra,NRT,2026-05-15
-
-        '
   responses:
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
       content:
         text/plain:
           schema:
             type: string
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
       content:
         text/plain:
           schema:
@@ -84,3 +73,14 @@ components:
       schema:
         type: string
         example: d2b4a9e1f3c75820b6da1e4f9c0b3721
+  schemas:
+    MissingDataCSV:
+      type: string
+      description: 'CSV-formatted list of dates with missing satellite fire detection data, organized by satellite and data type. NRT entries only appear for dates beyond the last standard processing date.
+
+        '
+      example: 'satellite,data_type,date
+
+        Terra,NRT,2026-05-15
+
+        '
