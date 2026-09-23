@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: NASA FIRMS Area Fire Detections API
-  description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
-
-    '
+  description: NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments.
   version: '4.0'
   contact:
     name: NASA FIRMS Support
@@ -23,9 +21,7 @@ paths:
     get:
       operationId: getAreaFireDetections
       summary: Get area fire detections (most recent)
-      description: 'Returns active fire detection hotspots within the specified bounding box for the most recent DAY_RANGE days (today back to today minus DAY_RANGE-1). Results are returned in CSV format.
-
-        '
+      description: Returns active fire detection hotspots within the specified bounding box for the most recent DAY_RANGE days (today back to today minus DAY_RANGE-1). Results are returned in CSV format.
       tags:
       - Area Fire Detections
       parameters:
@@ -55,9 +51,7 @@ paths:
     get:
       operationId: getAreaFireDetectionsByDate
       summary: Get area fire detections starting from a specific date
-      description: 'Returns active fire detection hotspots within the specified bounding box starting from the given DATE and spanning DAY_RANGE days forward (DATE to DATE + DAY_RANGE - 1). Results are returned in CSV format.
-
-        '
+      description: Returns active fire detection hotspots within the specified bounding box starting from the given DATE and spanning DAY_RANGE days forward (DATE to DATE + DAY_RANGE - 1). Results are returned in CSV format.
       tags:
       - Area Fire Detections
       parameters:
@@ -111,45 +105,13 @@ components:
         -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
 
         '
-  parameters:
-    DayRange:
-      name: day_range
-      in: path
-      required: true
-      description: Number of days to include in the query (1 to 5).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 5
-        example: 2
-    Source:
-      name: source
-      in: path
-      required: true
-      description: Satellite sensor data source.
-      schema:
-        $ref: '#/components/schemas/SourceEnum'
-    AreaCoordinates:
-      name: area_coordinates
-      in: path
-      required: true
-      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
-
-        '
-      schema:
-        type: string
-        example: -85,-57,-32,14
-    MapKey:
-      name: map_key
-      in: path
-      required: true
-      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
-
-        '
-      schema:
-        type: string
-        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
   responses:
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
     BadRequest:
       description: Bad request — invalid or missing parameters.
       content:
@@ -164,9 +126,41 @@ components:
         text/plain:
           schema:
             type: string
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
-      content:
-        text/plain:
-          schema:
-            type: string
+  parameters:
+    DayRange:
+      name: day_range
+      in: path
+      required: true
+      description: Number of days to include in the query (1 to 5).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 2
+    AreaCoordinates:
+      name: area_coordinates
+      in: path
+      required: true
+      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
+
+        '
+      schema:
+        type: string
+        example: -85,-57,-32,14
+    Source:
+      name: source
+      in: path
+      required: true
+      description: Satellite sensor data source.
+      schema:
+        $ref: '#/components/schemas/SourceEnum'
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
+
+        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721

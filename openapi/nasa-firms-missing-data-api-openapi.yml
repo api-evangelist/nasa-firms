@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: NASA FIRMS Area Fire Detections Missing Data API
-  description: 'NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. A free MAP_KEY obtained via registration is required for most endpoints.
-
-    '
+  title: NASA FIRMS Missing Data API
+  description: NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments.
   version: '4.0'
   contact:
     name: NASA FIRMS Support
@@ -23,9 +21,7 @@ paths:
     get:
       operationId: getMissingData
       summary: Get dates with missing satellite data
-      description: 'Identifies dates for which satellite fire detection data is absent from the FIRMS database, organized by satellite and data type. Near Real-Time entries only appear for dates beyond the final standard processing date for each satellite.
-
-        '
+      description: Identifies dates for which satellite fire detection data is absent from the FIRMS database, organized by satellite and data type. Near Real-Time entries only appear for dates beyond the final standard processing date for each satellite.
       tags:
       - Missing Data
       parameters:
@@ -50,14 +46,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
       content:
         text/plain:
           schema:
             type: string
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
       content:
         text/plain:
           schema:
