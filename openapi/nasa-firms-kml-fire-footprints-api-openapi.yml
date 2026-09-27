@@ -87,15 +87,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
-    DateSpanEnum:
-      type: string
-      description: Time span for KML fire footprint queries.
-      enum:
-      - 24h
-      - 48h
-      - 72h
-      - 7d
-      example: 24h
     KmlSensorEnum:
       type: string
       description: Satellite sensor source for KML footprint data.
@@ -123,27 +114,29 @@ components:
       - southeast_asia
       - australia_newzealand
       example: south_america
+    DateSpanEnum:
+      type: string
+      description: Time span for KML fire footprint queries.
+      enum:
+      - 24h
+      - 48h
+      - 72h
+      - 7d
+      example: 24h
   responses:
-    NotFound:
-      description: Not found — the requested resource does not exist.
-      content:
-        text/plain:
-          schema:
-            type: string
     BadRequest:
       description: Bad request — invalid or missing parameters.
       content:
         text/plain:
           schema:
             type: string
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        text/plain:
+          schema:
+            type: string
   parameters:
-    Region:
-      name: region
-      in: path
-      required: true
-      description: Predefined geographic region.
-      schema:
-        $ref: '#/components/schemas/RegionEnum'
     DateSpan:
       name: date_span
       in: path
@@ -158,3 +151,10 @@ components:
       description: Satellite sensor source for KML footprints.
       schema:
         $ref: '#/components/schemas/KmlSensorEnum'
+    Region:
+      name: region
+      in: path
+      required: true
+      description: Predefined geographic region.
+      schema:
+        $ref: '#/components/schemas/RegionEnum'

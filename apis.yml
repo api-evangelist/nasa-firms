@@ -56,7 +56,6 @@ apis:
   name: NASA FIRMS Area Fire Detections API
   description: Active fire hotspot detections within a bounding box area
   humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
-  baseURL: https://firms.modaps.eosdis.nasa.gov
   tags:
   - Area Fire Detections
   properties:
@@ -86,7 +85,6 @@ apis:
   name: NASA FIRMS Data Availability API
   description: Check which dates have Standard Processing or Near Real-Time data
   humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
-  baseURL: https://firms.modaps.eosdis.nasa.gov
   tags:
   - Data Availability
   properties:
@@ -116,7 +114,6 @@ apis:
   name: NASA FIRMS KML Fire Footprints API
   description: KMZ files containing color-coded fire footprint polygons by region
   humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
-  baseURL: https://firms.modaps.eosdis.nasa.gov
   tags:
   - KML Fire Footprints
   properties:
@@ -146,7 +143,6 @@ apis:
   name: NASA FIRMS Missing Data API
   description: Identify dates with absent satellite fire detection data
   humanURL: https://firms.modaps.eosdis.nasa.gov/api/area/
-  baseURL: https://firms.modaps.eosdis.nasa.gov
   tags:
   - Missing Data
   properties:

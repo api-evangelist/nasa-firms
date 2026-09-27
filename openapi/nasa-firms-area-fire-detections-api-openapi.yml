@@ -81,6 +81,65 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+    RateLimitExceeded:
+      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
+
+        '
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
+  parameters:
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
+
+        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
+    AreaCoordinates:
+      name: area_coordinates
+      in: path
+      required: true
+      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
+
+        '
+      schema:
+        type: string
+        example: -85,-57,-32,14
+    Source:
+      name: source
+      in: path
+      required: true
+      description: Satellite sensor data source.
+      schema:
+        $ref: '#/components/schemas/SourceEnum'
+    DayRange:
+      name: day_range
+      in: path
+      required: true
+      description: Number of days to include in the query (1 to 5).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 2
   schemas:
     SourceEnum:
       type: string
@@ -105,62 +164,3 @@ components:
         -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
 
         '
-  responses:
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
-      content:
-        text/plain:
-          schema:
-            type: string
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        text/plain:
-          schema:
-            type: string
-    RateLimitExceeded:
-      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
-
-        '
-      content:
-        text/plain:
-          schema:
-            type: string
-  parameters:
-    DayRange:
-      name: day_range
-      in: path
-      required: true
-      description: Number of days to include in the query (1 to 5).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 5
-        example: 2
-    AreaCoordinates:
-      name: area_coordinates
-      in: path
-      required: true
-      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
-
-        '
-      schema:
-        type: string
-        example: -85,-57,-32,14
-    Source:
-      name: source
-      in: path
-      required: true
-      description: Satellite sensor data source.
-      schema:
-        $ref: '#/components/schemas/SourceEnum'
-    MapKey:
-      name: map_key
-      in: path
-      required: true
-      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
-
-        '
-      schema:
-        type: string
-        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
