@@ -123,27 +123,7 @@ components:
       - 72h
       - 7d
       example: 24h
-  responses:
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        text/plain:
-          schema:
-            type: string
-    NotFound:
-      description: Not found — the requested resource does not exist.
-      content:
-        text/plain:
-          schema:
-            type: string
   parameters:
-    DateSpan:
-      name: date_span
-      in: path
-      required: true
-      description: Time span of fire detections to include.
-      schema:
-        $ref: '#/components/schemas/DateSpanEnum'
     KmlSensor:
       name: sensor
       in: path
@@ -158,3 +138,23 @@ components:
       description: Predefined geographic region.
       schema:
         $ref: '#/components/schemas/RegionEnum'
+    DateSpan:
+      name: date_span
+      in: path
+      required: true
+      description: Time span of fire detections to include.
+      schema:
+        $ref: '#/components/schemas/DateSpanEnum'
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist.
+      content:
+        text/plain:
+          schema:
+            type: string
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string

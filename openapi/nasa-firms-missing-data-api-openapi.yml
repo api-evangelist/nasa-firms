@@ -46,14 +46,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
       content:
         text/plain:
           schema:
             type: string
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
       content:
         text/plain:
           schema:

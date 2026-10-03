@@ -81,7 +81,37 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
+  schemas:
+    FireDetectionCSV:
+      type: string
+      description: 'CSV-formatted active fire detection data. Columns vary by sensor but typically include latitude, longitude, brightness temperature, scan size, track size, acquisition date/time, satellite name, confidence level, version, brightness T31, fire radiative power (FRP), and day/night flag.
+
+        '
+      example: 'latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight
+
+        -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
+
+        '
+    SourceEnum:
+      type: string
+      description: Satellite sensor data source identifier.
+      enum:
+      - LANDSAT_NRT
+      - MODIS_NRT
+      - MODIS_SP
+      - VIIRS_NOAA20_NRT
+      - VIIRS_NOAA20_SP
+      - VIIRS_NOAA21_NRT
+      - VIIRS_SNPP_NRT
+      - VIIRS_SNPP_SP
+      example: VIIRS_SNPP_NRT
   responses:
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
     BadRequest:
       description: Bad request — invalid or missing parameters.
       content:
@@ -96,23 +126,7 @@ components:
         text/plain:
           schema:
             type: string
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
-      content:
-        text/plain:
-          schema:
-            type: string
   parameters:
-    MapKey:
-      name: map_key
-      in: path
-      required: true
-      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
-
-        '
-      schema:
-        type: string
-        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
     AreaCoordinates:
       name: area_coordinates
       in: path
@@ -123,13 +137,6 @@ components:
       schema:
         type: string
         example: -85,-57,-32,14
-    Source:
-      name: source
-      in: path
-      required: true
-      description: Satellite sensor data source.
-      schema:
-        $ref: '#/components/schemas/SourceEnum'
     DayRange:
       name: day_range
       in: path
@@ -140,27 +147,20 @@ components:
         minimum: 1
         maximum: 5
         example: 2
-  schemas:
-    SourceEnum:
-      type: string
-      description: Satellite sensor data source identifier.
-      enum:
-      - LANDSAT_NRT
-      - MODIS_NRT
-      - MODIS_SP
-      - VIIRS_NOAA20_NRT
-      - VIIRS_NOAA20_SP
-      - VIIRS_NOAA21_NRT
-      - VIIRS_SNPP_NRT
-      - VIIRS_SNPP_SP
-      example: VIIRS_SNPP_NRT
-    FireDetectionCSV:
-      type: string
-      description: 'CSV-formatted active fire detection data. Columns vary by sensor but typically include latitude, longitude, brightness temperature, scan size, track size, acquisition date/time, satellite name, confidence level, version, brightness T31, fire radiative power (FRP), and day/night flag.
+    Source:
+      name: source
+      in: path
+      required: true
+      description: Satellite sensor data source.
+      schema:
+        $ref: '#/components/schemas/SourceEnum'
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
 
         '
-      example: 'latitude,longitude,brightness,scan,track,acq_date,acq_time,satellite,confidence,version,bright_t31,frp,daynight
-
-        -12.345,-67.890,325.6,1.0,1.0,2026-06-12,1345,Terra,h,6.1NRT,290.3,15.2,D
-
-        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721

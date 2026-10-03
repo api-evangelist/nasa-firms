@@ -56,6 +56,12 @@ paths:
           $ref: '#/components/responses/RateLimitExceeded'
 components:
   responses:
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
     BadRequest:
       description: Bad request — invalid or missing parameters.
       content:
@@ -70,13 +76,17 @@ components:
         text/plain:
           schema:
             type: string
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
-      content:
-        text/plain:
-          schema:
-            type: string
   schemas:
+    DataAvailabilityCSV:
+      type: string
+      description: 'CSV-formatted data availability report indicating whether SP (Standard Processing) and NRT (Near Real-Time) data exist for each date per sensor.
+
+        '
+      example: 'sensor,date,sp,nrt
+
+        MODIS_NRT,2026-06-12,false,true
+
+        '
     SensorWithAllEnum:
       type: string
       description: Satellite sensor identifier, or ALL for all sensors.
@@ -91,16 +101,6 @@ components:
       - VIIRS_SNPP_NRT
       - VIIRS_SNPP_SP
       example: ALL
-    DataAvailabilityCSV:
-      type: string
-      description: 'CSV-formatted data availability report indicating whether SP (Standard Processing) and NRT (Near Real-Time) data exist for each date per sensor.
-
-        '
-      example: 'sensor,date,sp,nrt
-
-        MODIS_NRT,2026-06-12,false,true
-
-        '
   parameters:
     MapKey:
       name: map_key
