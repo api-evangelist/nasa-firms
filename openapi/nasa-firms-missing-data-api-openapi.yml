@@ -45,6 +45,17 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    MapKey:
+      name: map_key
+      in: path
+      required: true
+      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
+
+        '
+      schema:
+        type: string
+        example: d2b4a9e1f3c75820b6da1e4f9c0b3721
   responses:
     BadRequest:
       description: Bad request — invalid or missing parameters.
@@ -69,14 +80,3 @@ components:
         Terra,NRT,2026-05-15
 
         '
-  parameters:
-    MapKey:
-      name: map_key
-      in: path
-      required: true
-      description: 'Free MAP_KEY obtained via registration at https://firms.modaps.eosdis.nasa.gov/api/map_key/. Rate limited to 5000 transactions per 10-minute interval. Larger requests (e.g., 7-day queries) may count as multiple transactions.
-
-        '
-      schema:
-        type: string
-        example: d2b4a9e1f3c75820b6da1e4f9c0b3721

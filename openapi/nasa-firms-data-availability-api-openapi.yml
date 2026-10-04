@@ -55,38 +55,7 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
-      content:
-        text/plain:
-          schema:
-            type: string
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        text/plain:
-          schema:
-            type: string
-    RateLimitExceeded:
-      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
-
-        '
-      content:
-        text/plain:
-          schema:
-            type: string
   schemas:
-    DataAvailabilityCSV:
-      type: string
-      description: 'CSV-formatted data availability report indicating whether SP (Standard Processing) and NRT (Near Real-Time) data exist for each date per sensor.
-
-        '
-      example: 'sensor,date,sp,nrt
-
-        MODIS_NRT,2026-06-12,false,true
-
-        '
     SensorWithAllEnum:
       type: string
       description: Satellite sensor identifier, or ALL for all sensors.
@@ -101,6 +70,37 @@ components:
       - VIIRS_SNPP_NRT
       - VIIRS_SNPP_SP
       example: ALL
+    DataAvailabilityCSV:
+      type: string
+      description: 'CSV-formatted data availability report indicating whether SP (Standard Processing) and NRT (Near Real-Time) data exist for each date per sensor.
+
+        '
+      example: 'sensor,date,sp,nrt
+
+        MODIS_NRT,2026-06-12,false,true
+
+        '
+  responses:
+    RateLimitExceeded:
+      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
+
+        '
+      content:
+        text/plain:
+          schema:
+            type: string
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
   parameters:
     MapKey:
       name: map_key

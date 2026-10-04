@@ -105,38 +105,7 @@ components:
       - VIIRS_SNPP_NRT
       - VIIRS_SNPP_SP
       example: VIIRS_SNPP_NRT
-  responses:
-    Unauthorized:
-      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
-      content:
-        text/plain:
-          schema:
-            type: string
-    BadRequest:
-      description: Bad request — invalid or missing parameters.
-      content:
-        text/plain:
-          schema:
-            type: string
-    RateLimitExceeded:
-      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
-
-        '
-      content:
-        text/plain:
-          schema:
-            type: string
   parameters:
-    AreaCoordinates:
-      name: area_coordinates
-      in: path
-      required: true
-      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
-
-        '
-      schema:
-        type: string
-        example: -85,-57,-32,14
     DayRange:
       name: day_range
       in: path
@@ -147,6 +116,16 @@ components:
         minimum: 1
         maximum: 5
         example: 2
+    AreaCoordinates:
+      name: area_coordinates
+      in: path
+      required: true
+      description: 'Bounding box in west,south,east,north format (decimal degrees), or the string "world" for global coverage [-180,-90,180,90].
+
+        '
+      schema:
+        type: string
+        example: -85,-57,-32,14
     Source:
       name: source
       in: path
@@ -164,3 +143,24 @@ components:
       schema:
         type: string
         example: d2b4a9e1f3c75820b6da1e4f9c0b3721
+  responses:
+    RateLimitExceeded:
+      description: 'Rate limit exceeded — more than 5000 transactions in a 10-minute interval. Retry after the interval resets.
+
+        '
+      content:
+        text/plain:
+          schema:
+            type: string
+    BadRequest:
+      description: Bad request — invalid or missing parameters.
+      content:
+        text/plain:
+          schema:
+            type: string
+    Unauthorized:
+      description: Unauthorized — MAP_KEY is missing, invalid, or quota exceeded.
+      content:
+        text/plain:
+          schema:
+            type: string
