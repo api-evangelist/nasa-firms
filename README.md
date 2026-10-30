@@ -64,31 +64,157 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-NASA Fire Information for Resource Management System (FIRMS) REST API providing
-near-real-time satellite fire detections globally from MODIS (Terra/Aqua),
-VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available
-within 3 hours of satellite observation worldwide, with Ultra Real-Time
-detections available within 60 seconds for the US and Canada.
+NASA Fire Information for Resource Management System (FIRMS) REST API providing near-real-time satellite fire detections globally from MODIS (Terra/Aqua), VIIRS (S-NPP, NOAA-20, NOAA-21), and LANDSAT instruments. Data is available within 3 hours of satellite observation worldwide, with Ultra Real-Time detections available within 60 seconds for the US and Canada. Supports area-based bounding box queries, KML fire footprints by region, data availability checks, and missing data identification. Free MAP_KEY registration required.
 
-**Human URL:** https://firms.modaps.eosdis.nasa.gov/api/
+**Areas:** NASA · Fire Detection · Satellite · MODIS · VIIRS · Remote Sensing · Open Data · Environmental · Geospatial · Science
 
-## APIs
+## NASA FIRMS on APIs.io
 
-- **Area Fire Detections** — active fire hotspots by bounding box, sensor, and day range (CSV)
-- **KML Fire Footprints** — regional fire footprint polygons by time span and sensor (KMZ)
-- **Data Availability** — check which dates have SP and NRT data per sensor
-- **Missing Data** — identify dates lacking satellite coverage per sensor
+Everything profiled for NASA FIRMS is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/nasa-firms/](https://apis.io/providers/nasa-firms/)** — or go straight to one of the APIs or properties below.
 
-## Authentication
+### APIs (4)
 
-Free MAP_KEY registration required for area, data availability, and missing data
-endpoints. KML fire footprints are publicly accessible without a key.
+- [NASA FIRMS Area Fire Detections API](https://apis.io/apis/nasa-firms/nasa-firms-area-fire-detections-api/) — Active fire hotspot detections within a bounding box area
+- [NASA FIRMS Data Availability API](https://apis.io/apis/nasa-firms/nasa-firms-data-availability-api/) — Check which dates have Standard Processing or Near Real-Time data
+- [NASA FIRMS KML Fire Footprints API](https://apis.io/apis/nasa-firms/nasa-firms-kml-fire-footprints-api/) — KMZ files containing color-coded fire footprint polygons by region
+- [NASA FIRMS Missing Data API](https://apis.io/apis/nasa-firms/nasa-firms-missing-data-api/) — Identify dates with absent satellite fire detection data
 
-Rate limit: **5,000 transactions per 10-minute interval** per MAP_KEY.
+### Published properties
 
-## Links
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- [API Documentation](https://firms.modaps.eosdis.nasa.gov/api/)
-- [Register for MAP_KEY](https://firms.modaps.eosdis.nasa.gov/api/)
-- [Fire Data Academy](https://firms.modaps.eosdis.nasa.gov/academy/)
-- [Contact](https://firms.modaps.eosdis.nasa.gov/contact/)
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Nasa Firms Agentic Access](https://apis.io/agentic-access/nasa-firms/nasa-firms-agentic-access/)
+
+#### JSON Schema (2)
+
+The data models the API reads and writes.
+
+- [Data Availability Record](https://apis.io/schemas/nasa-firms/data-availability/)
+- [Fire Detection Record](https://apis.io/schemas/nasa-firms/fire-detection/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Nasa Firms Context](https://apis.io/jsonld/nasa-firms/nasa-firms-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [NASA FIRMS API Vocabulary](https://apis.io/vocabularies/nasa-firms/nasa-firms-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Area Fire Detections Request](https://apis.io/examples/nasa-firms/area-fire-detections-request/)
+- [Data Availability Request](https://apis.io/examples/nasa-firms/data-availability-request/)
+- [Kml Fire Footprints Request](https://apis.io/examples/nasa-firms/kml-fire-footprints-request/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [NASA FIRMS Area Fire Detections API](https://apis.io/collections/nasa-firms/open-nasa-firms-area-fire-detections-api/)
+- [NASA FIRMS Area Fire Detections Data Availability API](https://apis.io/collections/nasa-firms/open-nasa-firms-data-availability-api/)
+- [NASA FIRMS Area Fire Detections KML Fire Footprints API](https://apis.io/collections/nasa-firms/open-nasa-firms-kml-fire-footprints-api/)
+- [NASA FIRMS Area Fire Detections Missing Data API](https://apis.io/collections/nasa-firms/open-nasa-firms-missing-data-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [NASA FIRMS — jsonschema rules](https://apis.io/rules/nasa-firms/nasa-firms-jsonschema-spectral-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Nasa Firms Domain Security](https://apis.io/security/nasa-firms/nasa-firms-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Nasa Firms Plans Pricing](https://apis.io/plans/nasa-firms/nasa-firms-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Nasa Firms Rate Limits](https://apis.io/rate-limits/nasa-firms/nasa-firms-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Nasa Firms Finops](https://apis.io/finops/nasa-firms/nasa-firms-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://firms.modaps.eosdis.nasa.gov/)
+- [Documentation](https://firms.modaps.eosdis.nasa.gov/api/)
+- [Getting started](https://firms.modaps.eosdis.nasa.gov/api/area/)
+- [Pricing](https://firms.modaps.eosdis.nasa.gov/api/)
+- [Blog](https://earthdata.nasa.gov/)
+- [Terms of service](https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy)
+
+## API Evangelist rating
+
+**Kin Score 38.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 59.7 |
+| Contract governance | 23.5 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 26.3 |
+
+**Agent readiness 26.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/nasa-firms/](https://apis.io/providers/nasa-firms/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for NASA FIRMS: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/nasa-firms/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
